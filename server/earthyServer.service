@@ -3,10 +3,10 @@ Description=Mael backend server
 After=network.target
 
 [Service]
-ExecStart=/var/Project/maelserver/index.js
+ExecStart=/var/earthy/server/index.js
 Restart=always
 User=ubuntu
-WorkingDirectory=/var/Project/maelserver
+WorkingDirectory=/var/earthy/server/
 Environment=PATH=/usr/bin:/usr/local/bin
 Environment=NODE_ENV=production
 
