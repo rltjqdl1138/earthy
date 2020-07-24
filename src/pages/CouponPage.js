@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import  { Redirect } from 'react-router-dom'
 
 export default class CouponPage extends Component{
     constructor(props){
@@ -12,7 +13,7 @@ export default class CouponPage extends Component{
     }
     handleChange = (field, value) => this.setState({[field]:value})
     componentDidMount(){
-        this.checkCoupon(this.props.token)
+        return this.props.token ? this.checkCoupon(this.props.token) : null
     }
     checkCoupon = async(token)=>{
         if(!token || !token.length) return;
@@ -29,8 +30,7 @@ export default class CouponPage extends Component{
         <div style={{ position:'fixed', overflow:'auto', width:'100%', height:'100%', fontSize:'2em', textAlign:'center', backgroundColor:'rgba(0,0,0,0.4)'}}
             onClick={()=>this.handleChange('isOpenQRCode', false)} >
             <div style={{height:'auto', width:'90%', margin:'auto', 'marginTop':'20%',backgroundColor:'white'}}>
-                <img src={`/api/coupon/qrcode?number=${this.state.couponNumber}`}
-                    style={{height:'auto', width:'auto'}} />
+                <img src={`/api/coupon/qrcode?number=${this.state.couponNumber}`} />
                 {this.state.couponNumber}
             </div>
         </div>
@@ -39,7 +39,9 @@ export default class CouponPage extends Component{
         return (
             <div style={{width:'100%', height:'100%'}}>
                 {this.state.isOpenQRCode ? this.getCode() : null}
-                <div style={{fontSize:'2em', textAlign:'center', paddingTop:'1em'}}>
+                <img src={`/api/image/${this.state.item.code}`}
+                    style={{width:'80%', marginLeft:'10%', marginRight:'10%'}} />
+                <div style={{fontSize:'1em', textAlign:'center', paddingTop:'1em'}}>
                     {this.state.item.name}
                 </div>
                 <button style={{width:'80%', margin:'auto', fontSize:'1em'}}

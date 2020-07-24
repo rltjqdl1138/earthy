@@ -1,15 +1,41 @@
 const router = require('express').Router()
 const jwt = require('./jwt')
-const qr = require('qr-image');  
-const coupons = require('./coupon.json')
 const coupon = require('./coupon')
+const fs = require('fs')
 
 const basicRouter = (req,res)=>{
     console.log('hh')
     res.send('hello')
 }
+const TemperImageRouter = async (req,res)=>{
+    try{
+        const url = await checkFileAsync('/coupon_sample.jpg')
+        streamFile (res,url)
+    }catch(e){
+        console.log(e)
+        return res.status(404).end()
+    }
+}
+
+
+const streamFile = (res, path) =>{
+    const stream = fs.createReadStream(path)
+        .on('open', ()=>{
+            res.writeHead(200, {"Content-Type": "image/jpeg"})
+            stream.pipe(res)
+        })
+        .on('error',(err)=> res.end(err))
+    return stream
+}
+
+const checkFileAsync = (uri) => new Promise((resolve, reject) =>{
+    const dir = __dirname+"/../resource/image"+uri
+    fs.stat(dir, (err,stats) => err ? reject(err) : resolve(dir) )
+})
 
 router.get('/', basicRouter)
+router.get('/image', TemperImageRouter)
+router.get('/image/*', TemperImageRouter)
 router.use('/coupon', coupon)
 
 module.exports = router

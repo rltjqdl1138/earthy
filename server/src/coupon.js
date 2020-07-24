@@ -6,7 +6,7 @@ const qr = require('qr-image');
 const jwt = require('./jwt')
 
 // Temp modules
-const URL = 'http://192.168.1.50:3000'
+const URL = 'http://192.168.1.40:3000'
 const coupons = require('./coupon.json')
 
 
@@ -43,8 +43,8 @@ const VerifyToken = (req, res)=>{
         return res.json({success:false})
     const item = {
         code: 1,
-        name: '500원 할인권',
-        cost: 500
+        name: '알맹상점 1000원 할인권',
+        cost: 1000
     }
     console.log(item, number)
     res.json({success:true, data:{item, couponNumber : number}})
