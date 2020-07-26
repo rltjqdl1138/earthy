@@ -1,5 +1,5 @@
 [Unit]
-Description=Mael backend server
+Description=Earthy backend server
 After=network.target
 
 [Service]

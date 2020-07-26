@@ -46,15 +46,13 @@ const VerifyToken = (req, res)=>{
         name: '알맹상점 1000원 할인권',
         cost: 1000
     }
-    console.log(item, number)
-    res.json({success:true, data:{item, couponNumber : number}})
+    res.json({success:true, data:{item, coupon}})
 }
 
 // GET /coupon/qrcode
 const GetQRCode = (req, res)=>{
     const {number} = req.query
     if(!number) return res.redirect('/')
-    console.log(number)
     const qrcode = qr.image(`${URL}/use?number=${number}`, { type: 'svg', parse_url:true });
     res.type('svg');
     qrcode.pipe(res);
@@ -88,7 +86,10 @@ const basicRouter = (req,res)=>{
     res.send('Jigugong')
 }
 const createToken = async (req, res)=>{
-    const token = await jwt.code({code:1, name:'rltjqdl1138', number:'0000-0000-0000'})
+    const {code, name, number} = req.body
+    if(!code, !name, !number)
+        return res.status(404).end()
+    const token = await jwt.code({code, name, number})
     res.send(token)
 }
 
