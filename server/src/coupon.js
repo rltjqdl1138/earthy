@@ -6,7 +6,7 @@ const fs = require('fs')
 const jwt = require('./jwt')
 
 // Temp modules
-const URL = 'http://3.34.178.42/:3000'
+const URL = 'http://3.34.178.42'
 const coupons = require('./coupon.json')
 
 
