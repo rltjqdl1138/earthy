@@ -3,12 +3,14 @@ import {
     BrowserRouter as Router,
     Route,
     Link,
-    useLocation
+    useLocation,
+    Switch
 } from "react-router-dom";
 
 import CouponPage from './pages/CouponPage'
 import UsePage from './pages/UsePage'
 import MainPage from './pages/MainPage'
+import Management from './Management'
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -17,9 +19,12 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Route exact path="/" component={Main} />
-        <Route path="/coupon" component={Coupon} />
-        <Route path="/use" component={Use} />
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route path="/coupon" component={Coupon} />
+          <Route path="/use" component={Use} />
+          <Route path="/manage" component={Management} />
+        </Switch>
       </Router>
     </div>
   );

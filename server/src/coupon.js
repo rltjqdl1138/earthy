@@ -1,12 +1,12 @@
 // NPM packages
 const router = require('express').Router()
 const qr = require('qr-image');
-
+const fs = require('fs')
 // Earthy modules
 const jwt = require('./jwt')
 
 // Temp modules
-const URL = 'http://192.168.1.40:3000'
+const URL = 'http://192.168.0.23:3000'
 const coupons = require('./coupon.json')
 
 
@@ -81,10 +81,6 @@ const UseCoupon = (req, res)=>{
 
 
 // Temp router
-const basicRouter = (req,res)=>{
-    console.log('jigugong')
-    res.send('Jigugong')
-}
 const createToken = async (req, res)=>{
     const {code, name, number} = req.body
     if(!code, !name, !number)
@@ -92,10 +88,27 @@ const createToken = async (req, res)=>{
     const token = await jwt.code({code, name, number})
     res.send(token)
 }
+const getCouponList = async(req,res) => res.json({success:true, data:coupons.list})
+const updateCoupon = async(req, res)=>{
+    const {number, state} = req.body
+    if(!number || !state) return res.status(404).end()
 
+    const ind = coupons.list.findIndex(e=>e.number === number)
+    console.log(ind)
+    if(ind < 0)
+        return res.json({success:false})
+    coupons.list[ind].state = state
+    fs.writeFile('./coupon.json', JSON.stringify(coupons), err => {
+        if(err)
+            return res.json({success:false})
+        return res.json({success:true})
+    })
+    
+}
 // Temp router
 router.post('/',createToken)
-router.get('/', basicRouter)
+router.get('/', getCouponList)
+router.put('/', updateCoupon)
 
 
 router.get('/use', checkCoupon)

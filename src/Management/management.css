@@ -1,0 +1,67 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+table{
+    border-collapse: collapse;
+}
+ul{
+   list-style:none;
+}
+.MainContainer{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.nav{
+    height: auto;
+    display: flex;
+}
+.nav > li {
+    padding: 1em;
+}
+@media (width>768px){
+    .list_row{
+        border-bottom: 1px solid rgb(200,200,200);
+        text-align: center;
+    }
+    .list_row > th{
+        padding: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: auto
+    }
+    .list_row > td{
+        padding: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: auto;
+    }
+}
+
+@media (width<=768px){
+    .list_row{
+        border-bottom: 1px solid rgb(200,200,200);
+        text-align: center;
+    }
+    .list_row > th{
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        width: auto
+    }
+    .list_row > td{
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        width: auto;
+    }
+    .list_row > .item_index{
+        display: none
+    }
+    .list_row > .item_goods{
+        display: none
+    }
+    .list_row > .item_link{
+        display: none
+    }
+}
