@@ -1,3 +1,6 @@
+# Resource
+resource/*
+
 # Logs
 logs
 *.log
